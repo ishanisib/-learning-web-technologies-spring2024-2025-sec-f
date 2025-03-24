@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gender Selection Form</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Gender</legend>
+        <input type="radio" id="male" name="gender" value="Male"/> Male
+        <input type="radio" id="female" name="gender" value="Female"/> Female
+        <input type="radio" id="other" name="gender" value="Other"/> Other
+    </fieldset>
+    <br/>
+    <input type="button" id="submit" name="submit" value="Submit" onclick="validateGender()"/>
+    <p id="error"></p>
+
+    
+
+    <script>
+        function validateGender() {
+            let maleSelected = document.getElementById('male').checked;
+            let femaleSelected = document.getElementById('female').checked;
+            let otherSelected = document.getElementById('other').checked;
+            let error = document.getElementById('error');
+            
+            let valid = true;
+            
+            for(let i = 0; i < 1; i++) {
+                if(!maleSelected && !femaleSelected && !otherSelected) {
+                    error.innerHTML = "At least one gender must be selected";
+                    error.style.color = 'red';
+                    alert("Error: At least one gender must be selected");
+                    valid = false;
+                    break;
+                }
+            }
+            
+            if(valid) {
+                let selectedGender = "";
+                if(maleSelected) selectedGender = "Male";
+                if(femaleSelected) selectedGender = "Female";
+                if(otherSelected) selectedGender = "Other";
+                
+                error.innerHTML = "Form Submitted Successfully!";
+                error.style.color = 'green';
+                alert("Selected gender: " + selectedGender);
+            }
+            
+            return valid;
+        }
+    </script>
+</body>
+</html>

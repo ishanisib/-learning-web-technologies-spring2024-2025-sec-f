@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Email Validation Form</title>
+</head>
+<body>
+    <label>Email</label><br/>
+    <input type="text" id="email" name="email" value="" />
+    <br/>
+    <input type="button" id="submit" name="submit" value="Submit" onclick="validateEmail()"/>
+    <p id="error"></p>
+    <p>hint: sample@example.com</p>
+
+
+    <script>
+        function validateEmail() {
+            let email = document.getElementById('email').value;
+            let error = document.getElementById('error');
+            
+            // Initialize validation status
+            let valid = true;
+            
+            for(let i = 0; i < 1; i++) {
+                // Check if empty
+                if(email == "") {
+                    error.innerHTML = "Cannot be empty";
+                    error.style.color = 'red';
+                    alert("Error: Cannot be empty");
+                    valid = false;
+                    break;
+                }
+                
+                // Check if valid email
+                let atPosition = email.indexOf('@');
+                let dotPosition = email.lastIndexOf('.');
+                
+                if(atPosition < 1 || dotPosition < atPosition + 2 || dotPosition + 2 >= email.length) {
+                    error.innerHTML = "Must be a valid email address";
+                    error.style.color = 'red';
+                    alert("Error: Must be a valid email address");
+                    valid = false;
+                    break;
+                }
+            }
+            
+            // success message
+            if(valid) {
+                error.innerHTML = "Form Submitted Successfully!";
+                error.style.color = 'green';
+                alert("Welcome, Your email is: " + email);
+            }
+            
+            return valid;
+        }
+    </script>
+</body>
+</html>

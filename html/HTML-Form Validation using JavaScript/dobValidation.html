@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Date of Birth Validation Form</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Date of Birth</legend>
+        <input type="text" id="day" name="day" size="2" maxlength="2" /> /
+        <input type="text" id="month" name="month" size="2" maxlength="2" /> /
+        <input type="text" id="year" name="year" size="4" maxlength="4" />
+        <hr/>
+        <input type="button" id="submit" name="submit" value="Submit" onclick="validateDOB()"/>
+    </fieldset>
+    <p id="error"></p>
+
+
+    <script>
+        function validateDOB() {
+            let day = document.getElementById('day').value;
+            let month = document.getElementById('month').value;
+            let year = document.getElementById('year').value;
+            let error = document.getElementById('error');
+            
+            let valid = true;
+            
+            for(let i = 0; i < 1; i++) {
+                // Check if empty
+                if(day == "" || month == "" || year == "") {
+                    error.innerHTML = "Cannot be empty";
+                    error.style.color = 'red';
+                    alert("Error: All fields must be filled out");
+                    valid = false;
+                    break;
+                }
+                
+                // Check if they are numbers
+                if(isNaN(day) || isNaN(month) || isNaN(year)) {
+                    error.innerHTML = "All fields must be numbers";
+                    error.style.color = 'red';
+                    alert("Error: All fields must be numbers");
+                    valid = false;
+                    break;
+                }
+                
+                // Convert to integers
+                let dayNum = parseInt(day);
+                let monthNum = parseInt(month);
+                let yearNum = parseInt(year);
+                
+                // Validate day
+                if(dayNum < 0 || dayNum > 31) {
+                    error.innerHTML = "Day must be between 0-31";
+                    error.style.color = 'red';
+                    alert("Error: Day must be between 0-31");
+                    valid = false;
+                    break;
+                }
+                
+                // Validate month
+                if(monthNum < 1 || monthNum > 12) {
+                    error.innerHTML = "Month must be between 1-12";
+                    error.style.color = 'red';
+                    alert("Error: Month must be between 1-12");
+                    valid = false;
+                    break;
+                }
+                
+                // Validate year
+                if(yearNum < 1900 || yearNum > 2016) {
+                    error.innerHTML = "Year must be between 1900-2016";
+                    error.style.color = 'red';
+                    alert("Error: Year must be between 1900-2016");
+                    valid = false;
+                    break;
+                }
+            }
+            
+            if(valid) {
+                error.innerHTML = "Form Submitted Successfully!";
+                error.style.color = 'green';
+                alert("Date of Birth: " + day + "/" + month + "/" + year);
+            }
+            
+            return valid;
+        }
+    </script>
+</body>
+</html>
