@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Name Validation Form</title>
+</head>
+<body>
+    <label>Name</label><br/>
+    <input type="text" id="name" name="name" value="" />
+    <br/>
+    <input type="button" id="submit" name="submit" value="Submit" onclick="validateName()"/>
+    <p id="error"></p>
+
+    
+
+    <script>
+        function validateName() {
+            let name = document.getElementById('name').value;
+            let error = document.getElementById('error');
+            
+            // Initialize validation status
+            let valid = true;
+            
+            // Check if empty
+            for(let i = 0; i < 1; i++) {
+                if(name == "") {
+                    error.innerHTML = "Cannot be empty";
+                    error.style.color = 'red';
+                    alert("Error: Cannot be empty");
+                    valid = false;
+                    break;
+                }
+                
+                // Check if starts with a letter
+                let firstChar = name.charAt(0);
+                if(!(firstChar >= 'a' && firstChar <= 'z' || firstChar >= 'A' && firstChar <= 'Z')) {
+                    error.innerHTML = "Must start with a letter";
+                    error.style.color = 'red';
+                    alert("Error: Must start with a letter");
+                    valid = false;
+                    break;
+                }
+                
+                // Check if contains only allowed characters
+                let validChars = true;
+                for(let j = 0; j < name.length; j++) {
+                    let char = name.charAt(j);
+                    if(!(char >= 'a' && char <= 'z' || 
+                       char >= 'A' && char <= 'Z' || 
+                       char == ' ' || char == '.' || char == '-')) {
+                        validChars = false;
+                        break;
+                    }
+                }
+                
+                if(!validChars) {
+                    error.innerHTML = "Can only contain a-z or A-Z or dot(.) or dash(-)";
+                    error.style.color = 'red';
+                    alert("Error: Can only contain a-z or A-Z or dot(.) or dash(-)");
+                    valid = false;
+                    break;
+                }
+                
+                // Check if contains at least two words
+                let wordCount = 0;
+                let inWord = false;
+                
+                for(let j = 0; j < name.length; j++) {
+                    if(name.charAt(j) != ' ') {
+                        if(!inWord) {
+                            wordCount++;
+                            inWord = true;
+                        }
+                    } else {
+                        inWord = false;
+                    }
+                }
+                
+                if(wordCount < 2) {
+                    error.innerHTML = "Contains at least two words";
+                    error.style.color = 'red';
+                    alert("Error: Contains at least two words");
+                    valid = false;
+                    break;
+                }
+            }
+            
+            // success message
+            if(valid) {
+                error.innerHTML = "Form Submitted Successfully!";
+                error.style.color = 'green';
+                alert("Welcome, " + name);
+            }
+            
+            return valid;
+        }
+    </script>
+</body>
+</html>

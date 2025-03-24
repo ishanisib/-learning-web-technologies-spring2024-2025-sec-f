@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Products</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <fieldset>
+        <legend>Search Products</legend>
+        
+        <form id="searchForm">
+            <table>
+                <tr>
+                    <td>Search by Name:</td>
+                    <td>
+                        <input type="text" id="searchTerm" name="searchTerm" size="25">
+                        <button id="searchButton">Search</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        
+        <hr/>
+        
+        <table id="productsTable" class="product-table">
+            <!-- Search results will be displayed here -->
+        </table>
+        
+        <hr/>
+        
+        <a href="Display.html">Back to List</a>
+    </fieldset>
+
+    <script src="validation.js"></script>
+    <script src="productManagement.js"></script>
+    <script src="validation.js"></script>
+<script src="productManagement.js"></script>
+</body>
+</html>

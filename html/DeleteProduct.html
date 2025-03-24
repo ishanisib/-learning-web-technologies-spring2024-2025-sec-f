@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Product</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <fieldset>
+        <legend>Confirm Delete</legend>
+        
+        <div id="productInfo">
+            <!-- Product info will be loaded here -->
+        </div>
+        
+        <hr/>
+        <p>Are you sure you want to delete this product?</p>
+        <hr/>
+        
+        <button id="confirmDelete" class="delete-btn">Delete</button>
+        <a href="Display.html">Cancel</a>
+    </fieldset>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productId = parseInt(localStorage.getItem('deleteProductId'));
+            
+            if (!productId) {
+                window.location.href = 'Display.html';
+                return;
+            }
+            
+            // Load products from localStorage
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            
+            // Find the product
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) {
+                document.getElementById('productInfo').innerHTML = '<p class="error">Product not found!</p>';
+                return;
+            }
+            
+            // Display product info
+            document.getElementById('productInfo').innerHTML = `
+                <table>
+                    <tr>
+                        <td><strong>Name:</strong></td>
+                        <td>${product.name}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Buying Price:</strong></td>
+                        <td>$${product.buyingPrice.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Selling Price:</strong></td>
+                        <td>$${product.sellingPrice.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Profit:</strong></td>
+                        <td>$${product.profit.toFixed(2)}</td>
+                    </tr>
+                </table>
+            `;
+            
+            // Add event listener for delete button
+            document.getElementById('confirmDelete').addEventListener('click', function() {
+                // Filter out the product
+                const updatedProducts = products.filter(p => p.id !== productId);
+                
+                // Save to localStorage
+                localStorage.setItem('products', JSON.stringify(updatedProducts));
+                
+                // Redirect back to display page
+                window.location.href = 'Display.html';
+            });
+        });
+    </script>
+    <script src="validation.js"></script>
+    <script src="productManagement.js"></script>
+</body>
+</html>
